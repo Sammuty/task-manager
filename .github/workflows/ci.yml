@@ -51,4 +51,3 @@ jobs:
         with:
           name: depcheck-report
           path: reports
-EOF
