@@ -5,6 +5,15 @@ from flask_bcrypt import Bcrypt
 
 
 app = Flask(__name__)
+import logging
+from logging.handlers import SysLogHandler
+
+syslog_handler = SysLogHandler(address='/dev/log')
+syslog_handler.setLevel(logging.INFO)
+formatter = logging.Formatter('TaskManager: %(message)s')
+syslog_handler.setFormatter(formatter)
+app.logger.addHandler(syslog_handler)
+app.logger.setLevel(logging.INFO)
 app.config['SECRET_KEY'] = '45cf93c4d41348cd9980674ade9a7356'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
